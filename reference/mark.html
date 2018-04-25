@@ -191,18 +191,18 @@ garbage collections (if <code>filter_gc == TRUE</code>).</p></li>
 #&gt; <span class='message'>  num_x num_y</span></div><div class='output co'>#&gt; <span class='message'>1  1000  1000</span></div><div class='output co'>#&gt; <span class='message'>2 10000  1000</span></div><div class='output co'>#&gt; <span class='message'>3  1000 10000</span></div><div class='output co'>#&gt; <span class='message'>4 10000 10000</span></div><div class='output co'>#&gt; # A tibble: 12 x 16
 #&gt;    expression  num_x num_y     min    mean  median      max `itr/sec` mem_alloc
 #&gt;    &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;bch:t&gt; &lt;bch:t&gt; &lt;bch:t&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;
-#&gt;  1 dat[dat$x …  1000  1000  44.2µs  56.8µs  51.2µs    961µs    17609.     39.5K
-#&gt;  2 dat[which(…  1000  1000  44.4µs  57.2µs    51µs 994.86µs    17492.     33.5K
-#&gt;  3 subset(dat…  1000  1000    68µs 114.5µs  89.6µs 943.65µs     8732.     51.3K
-#&gt;  4 dat[dat$x … 10000  1000 322.6µs 432.3µs 388.7µs   1.31ms     2313.    414.2K
-#&gt;  5 dat[which(… 10000  1000 245.8µs   336µs 294.8µs   1.43ms     2976.    355.4K
-#&gt;  6 subset(dat… 10000  1000 408.3µs 490.1µs 452.8µs   1.27ms     2040.    531.5K
-#&gt;  7 dat[dat$x …  1000 10000 230.2µs 297.7µs   261µs   1.16ms     3359.    415.7K
-#&gt;  8 dat[which(…  1000 10000 214.9µs 289.4µs   262µs   1.83ms     3455.    357.1K
-#&gt;  9 subset(dat…  1000 10000 272.9µs 366.4µs 333.1µs   1.23ms     2729.      533K
-#&gt; 10 dat[dat$x … 10000 10000 318.1µs 430.4µs 387.5µs   1.29ms     2324.    416.6K
-#&gt; 11 dat[which(… 10000 10000 251.1µs 318.5µs   284µs   1.65ms     3140.      358K
-#&gt; 12 subset(dat… 10000 10000 412.6µs 482.3µs 448.2µs   1.34ms     2073.    533.9K
+#&gt;  1 dat[dat$x …  1000  1000  45.7µs  55.7µs    51µs 910.25µs    17938.     39.5K
+#&gt;  2 dat[which(…  1000  1000  45.5µs    54µs  51.1µs 914.48µs    18503.     33.5K
+#&gt;  3 subset(dat…  1000  1000  62.2µs  75.6µs  70.9µs  964.4µs    13229.     51.3K
+#&gt;  4 dat[dat$x … 10000  1000 331.9µs 395.7µs 364.1µs   1.58ms     2527.    414.2K
+#&gt;  5 dat[which(… 10000  1000 248.3µs 312.3µs 278.9µs   1.49ms     3202.    355.4K
+#&gt;  6 subset(dat… 10000  1000 398.7µs 470.7µs 431.1µs   1.34ms     2125.    531.5K
+#&gt;  7 dat[dat$x …  1000 10000 211.2µs 274.3µs 241.9µs   1.78ms     3646.    415.7K
+#&gt;  8 dat[which(…  1000 10000 227.5µs 309.5µs 264.4µs    1.3ms     3231.    357.1K
+#&gt;  9 subset(dat…  1000 10000 262.8µs 351.6µs 308.2µs    1.1ms     2844.      533K
+#&gt; 10 dat[dat$x … 10000 10000   322µs 411.4µs   354µs   1.25ms     2431.    416.6K
+#&gt; 11 dat[which(… 10000 10000 251.8µs   308µs 276.6µs   1.11ms     3246.      358K
+#&gt; 12 subset(dat… 10000 10000 407.2µs 480.2µs 445.9µs   1.17ms     2082.    533.9K
 #&gt; # ... with 7 more variables: n_gc &lt;dbl&gt;, n_itr &lt;int&gt;, total_time &lt;bch:tm&gt;,
 #&gt; #   result &lt;list&gt;, memory &lt;list&gt;, time &lt;list&gt;, gc &lt;list&gt;</div></pre>
   </div>
@@ -221,7 +221,7 @@ garbage collections (if <code>filter_gc == TRUE</code>).</p></li>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Jim Hester.</p>
+  <p>Developed by <a href='http://jimhester.com'>Jim Hester</a>.</p>
 </div>
 
 <div class="pkgdown">

@@ -127,18 +127,18 @@
 <span class='fu'>summary</span>(<span class='no'>results</span>, <span class='kw'>filter_gc</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; # A tibble: 3 x 14
 #&gt;   expression         min   mean  median     max `itr/sec` mem_alloc  n_gc n_itr
 #&gt;   &lt;chr&gt;           &lt;bch:&gt; &lt;bch:&gt; &lt;bch:t&gt; &lt;bch:t&gt;     &lt;dbl&gt; &lt;bch:byt&gt; &lt;dbl&gt; &lt;int&gt;
-#&gt; 1 dat[dat$x &gt; 50…  318µs  539µs   362µs 14.06ms     1855.      417K    23   928
-#&gt; 2 dat[which(dat$…  244µs  419µs   282µs  6.18ms     2387.      358K    27  1194
-#&gt; 3 subset(dat, x …  393µs  818µs   460µs 94.14ms     1223.      548K    21   612
+#&gt; 1 dat[dat$x &gt; 50…  317µs  552µs   358µs  8.41ms     1813.      417K    23   912
+#&gt; 2 dat[which(dat$…  242µs  426µs   275µs  7.91ms     2348.      358K    26  1180
+#&gt; 3 subset(dat, x …  381µs  786µs   438µs 78.45ms     1272.      548K    21   636
 #&gt; # ... with 5 more variables: total_time &lt;bch:tm&gt;, result &lt;list&gt;, memory &lt;list&gt;,
 #&gt; #   time &lt;list&gt;, gc &lt;list&gt;</div><div class='input'>
 <span class='co'># Or output relative times</span>
 <span class='fu'>summary</span>(<span class='no'>results</span>, <span class='kw'>relative</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; # A tibble: 3 x 14
 #&gt;   expression             min  mean median   max `itr/sec` mem_alloc  n_gc n_itr
 #&gt;   &lt;chr&gt;                &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-#&gt; 1 dat[dat$x &gt; 500, ]    1.30  1.31   1.29  1.06      1.27      1.16  1.10  1.53
-#&gt; 2 dat[which(dat$x &gt; 5…  1     1      1     1         1.66      1     1.29  1.97
-#&gt; 3 subset(dat, x &gt; 500)  1.61  1.66   1.63  1.48      1         1.53  1     1   
+#&gt; 1 dat[dat$x &gt; 500, ]    1.31  1.32   1.30  1         1.21      1.16  1.10  1.45
+#&gt; 2 dat[which(dat$x &gt; 5…  1     1      1     1.24      1.60      1     1.24  1.88
+#&gt; 3 subset(dat, x &gt; 500)  1.58  1.60   1.59  1.01      1         1.53  1     1   
 #&gt; # ... with 5 more variables: total_time &lt;dbl&gt;, result &lt;list&gt;, memory &lt;list&gt;,
 #&gt; #   time &lt;list&gt;, gc &lt;list&gt;</div></pre>
   </div>
@@ -161,7 +161,7 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by Jim Hester.</p>
+  <p>Developed by <a href='http://jimhester.com'>Jim Hester</a>.</p>
 </div>
 
 <div class="pkgdown">
