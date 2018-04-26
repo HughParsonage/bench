@@ -47,7 +47,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/jimhester/bench">
+  <a href="https://github.com/r-lib/bench">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -78,7 +78,7 @@
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>You can install the development version from <a href="https://github.com/">GitHub</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># install.packages("devtools")</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"jimhester/bench"</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb1-2" data-line-number="2">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"r-lib/bench"</span>)</a></code></pre></div>
 </div>
 <div id="features" class="section level2">
 <h2 class="hasAnchor">
@@ -118,9 +118,9 @@
 <a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co">#&gt; # A tibble: 3 x 10</span></a>
 <a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt;   expression                     min     mean   median      max `itr/sec` mem_alloc  n_gc n_itr total_time</span></a>
 <a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt;   &lt;chr&gt;                     &lt;bch:tm&gt; &lt;bch:tm&gt; &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt; &lt;dbl&gt; &lt;int&gt;   &lt;bch:tm&gt;</span></a>
-<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt; 1 dat[dat$x &gt; 500, ]           306µs    407µs    359µs   1.24ms     2459.      416K    49   869      353ms</span></a>
-<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt; 2 dat[which(dat$x &gt; 500), ]    232µs    300µs    267µs   1.12ms     3330.      357K    43  1087      326ms</span></a>
-<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt; 3 subset(dat, x &gt; 500)         375µs    484µs    426µs   1.75ms     2065.      548K    38   774      375ms</span></a></code></pre></div>
+<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt; 1 dat[dat$x &gt; 500, ]           313µs    394µs    361µs   1.31ms     2539.      416K    51   902      355ms</span></a>
+<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt; 2 dat[which(dat$x &gt; 500), ]    239µs    295µs    273µs   1.34ms     3393.      357K    51  1066      314ms</span></a>
+<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt; 3 subset(dat, x &gt; 500)         386µs    478µs    431µs   1.43ms     2092.      548K    38   763      365ms</span></a></code></pre></div>
 <p>The <code><a href="reference/mark.html">bench::mark</a></code> argument <code>setup</code> allows you to run code before each expression. The argument <code>parameters</code> allows you to define a <code>list()</code> (or <code>data.frame()</code>) of parameters to assign before running <code>setup</code>. If <code>parameters</code> is a <code>list()</code> all combinations of the parameters will be enumerated by <code>expand.grid()</code>. This allows you to benchmark a set of expressions across a wide variety of input sizes, among other things.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">42</span>)</a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"></a>
@@ -170,10 +170,10 @@
 <p><strong>bench</strong> also includes <code><a href="reference/system_time.html">system_time()</a></code>, a higher precision alternative to <a href="https://www.rdocumentation.org/packages/base/versions/3.5.0/topics/system.time">system.time()</a>.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">bench<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/bench/topics/system_time">system_time</a></span>({ i &lt;-<span class="st"> </span><span class="dv">1</span>; <span class="cf">while</span>(i <span class="op">&lt;</span><span class="st"> </span><span class="fl">1e7</span>) i &lt;-<span class="st"> </span>i <span class="op">+</span><span class="st"> </span><span class="dv">1</span> })</a>
 <a class="sourceLine" id="cb8-2" data-line-number="2"><span class="co">#&gt; process    real </span></a>
-<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="co">#&gt;   342ms   343ms</span></a>
+<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="co">#&gt;   356ms   360ms</span></a>
 <a class="sourceLine" id="cb8-4" data-line-number="4">bench<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/bench/topics/system_time">system_time</a></span>(<span class="kw">Sys.sleep</span>(.<span class="dv">5</span>))</a>
 <a class="sourceLine" id="cb8-5" data-line-number="5"><span class="co">#&gt; process    real </span></a>
-<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="co">#&gt;    85µs   504ms</span></a></code></pre></div>
+<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="co">#&gt;    62µs   504ms</span></a></code></pre></div>
 </div>
 <div id="alternatives" class="section level2">
 <h2 class="hasAnchor">
@@ -192,9 +192,9 @@
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
-<li>Browse source code at <br><a href="https://github.com/jimhester/bench">https://​github.com/​jimhester/​bench</a>
+<li>Browse source code at <br><a href="https://github.com/r-lib/bench">https://​github.com/​r-lib/​bench</a>
 </li>
-<li>Report a bug at <br><a href="https://github.com/jimhester/bench/issues">https://​github.com/​jimhester/​bench/​issues</a>
+<li>Report a bug at <br><a href="https://github.com/r-lib/bench/issues">https://​github.com/​r-lib/​bench/​issues</a>
 </li>
 </ul>
 </div>
@@ -215,9 +215,9 @@
       <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://travis-ci.org/jimhester/bench"><img src="https://travis-ci.org/jimhester/bench.svg?branch=master" alt="Travis build status"></a></li>
+<li><a href="https://travis-ci.org/r-lib/bench"><img src="https://travis-ci.org/r-lib/bench.svg?branch=master" alt="Travis build status"></a></li>
 <li><a href="https://ci.appveyor.com/project/jimhester/bench"><img src="https://ci.appveyor.com/api/projects/status/github/jimhester/bench?branch=master&amp;svg=true" alt="AppVeyor build status"></a></li>
-<li><a href="https://codecov.io/github/jimhester/bench?branch=master"><img src="https://codecov.io/gh/jimhester/bench/branch/master/graph/badge.svg" alt="Coverage status"></a></li>
+<li><a href="https://codecov.io/github/r-lib/bench?branch=master"><img src="https://codecov.io/gh/r-lib/bench/branch/master/graph/badge.svg" alt="Coverage status"></a></li>
 </ul>
 </div>
 </div>

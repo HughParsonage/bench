@@ -77,7 +77,7 @@
       
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/jimhester/bench">
+  <a href="https://github.com/r-lib/bench">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -95,7 +95,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Summarize <a href='mark.html'>bench::mark</a> results.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/jimhester/bench/blob/master/R/mark.R'><code>R/mark.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/r-lib/bench/blob/master/R/mark.R'><code>R/mark.R</code></a></small>
     <div class="hidden name"><code>summary.bench_mark.Rd</code></div>
     </div>
 
@@ -171,18 +171,18 @@ runs contain a gc.</p>
 <span class='fu'>summary</span>(<span class='no'>results</span>, <span class='kw'>filter_gc</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; # A tibble: 3 x 14
 #&gt;   expression         min   mean  median     max `itr/sec` mem_alloc  n_gc n_itr
 #&gt;   &lt;chr&gt;           &lt;bch:&gt; &lt;bch:&gt; &lt;bch:t&gt; &lt;bch:t&gt;     &lt;dbl&gt; &lt;bch:byt&gt; &lt;dbl&gt; &lt;int&gt;
-#&gt; 1 dat[dat$x &gt; 50…  309µs  641µs   357µs 81.07ms     1559.      417K    27   780
-#&gt; 2 dat[which(dat$…  242µs  439µs   274µs  6.58ms     2280.      358K    27  1140
-#&gt; 3 subset(dat, x …  392µs  659µs   433µs  6.25ms     1517.      534K    30   759
+#&gt; 1 dat[dat$x &gt; 50…  317µs  629µs   365µs 84.53ms     1590.      417K    26   797
+#&gt; 2 dat[which(dat$…  241µs  408µs   281µs  7.12ms     2449.      358K    29  1225
+#&gt; 3 subset(dat, x …  390µs  653µs   450µs  6.05ms     1531.      534K    31   766
 #&gt; # ... with 5 more variables: total_time &lt;bch:tm&gt;, result &lt;list&gt;, memory &lt;list&gt;,
 #&gt; #   time &lt;list&gt;, gc &lt;list&gt;</div><div class='input'>
 <span class='co'># Or output relative times</span>
 <span class='fu'>summary</span>(<span class='no'>results</span>, <span class='kw'>relative</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; # A tibble: 3 x 14
 #&gt;   expression             min  mean median   max `itr/sec` mem_alloc  n_gc n_itr
 #&gt;   &lt;chr&gt;                &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-#&gt; 1 dat[dat$x &gt; 500, ]    1.27  1.24   1.30  1.25      1.22      1.16  1     1.03
-#&gt; 2 dat[which(dat$x &gt; 5…  1     1      1     1         1.51      1     1     1.53
-#&gt; 3 subset(dat, x &gt; 500)  1.62  1.51   1.58  1.27      1         1.49  1.11  1   
+#&gt; 1 dat[dat$x &gt; 500, ]    1.31  1.26   1.30  1.10      1.27      1.16  1     1.05
+#&gt; 2 dat[which(dat$x &gt; 5…  1     1      1     1         1.59      1     1.12  1.63
+#&gt; 3 subset(dat, x &gt; 500)  1.62  1.59   1.60  1.15      1         1.49  1.19  1   
 #&gt; # ... with 5 more variables: total_time &lt;dbl&gt;, result &lt;list&gt;, memory &lt;list&gt;,
 #&gt; #   time &lt;list&gt;, gc &lt;list&gt;</div></pre>
   </div>
