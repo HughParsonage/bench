@@ -118,10 +118,10 @@
 <a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co">#&gt; # A tibble: 3 x 10</span></a>
 <a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt;   expression                     min     mean   median      max `itr/sec` mem_alloc  n_gc n_itr total_time</span></a>
 <a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt;   &lt;chr&gt;                     &lt;bch:tm&gt; &lt;bch:tm&gt; &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt; &lt;dbl&gt; &lt;int&gt;   &lt;bch:tm&gt;</span></a>
-<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt; 1 dat[dat$x &gt; 500, ]           313µs    394µs    361µs   1.31ms     2539.      416K    51   902      355ms</span></a>
-<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt; 2 dat[which(dat$x &gt; 500), ]    239µs    295µs    273µs   1.34ms     3393.      357K    51  1066      314ms</span></a>
-<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt; 3 subset(dat, x &gt; 500)         386µs    478µs    431µs   1.43ms     2092.      548K    38   763      365ms</span></a></code></pre></div>
-<p>The <code><a href="reference/mark.html">bench::mark</a></code> argument <code>setup</code> allows you to run code before each expression. The argument <code>parameters</code> allows you to define a <code>list()</code> (or <code>data.frame()</code>) of parameters to assign before running <code>setup</code>. If <code>parameters</code> is a <code>list()</code> all combinations of the parameters will be enumerated by <code>expand.grid()</code>. This allows you to benchmark a set of expressions across a wide variety of input sizes, among other things.</p>
+<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt; 1 dat[dat$x &gt; 500, ]           303µs    411µs    365µs   1.32ms     2432.     416KB    50   886      364ms</span></a>
+<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt; 2 dat[which(dat$x &gt; 500), ]    231µs    293µs    273µs   1.21ms     3410.     357KB    54  1109      325ms</span></a>
+<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt; 3 subset(dat, x &gt; 500)         376µs    457µs    422µs   1.39ms     2186.     548KB    63   774      354ms</span></a></code></pre></div>
+<p>The <code><a href="reference/press.html">bench::press()</a></code> can be used to run benchmarks against a grid of parameters. Define values to use as named arguments to <code><a href="reference/press.html">press()</a></code> and the full combination of values will be enumerated. Then put setup and benchmarking code as a single unnamed argument. The results and parameters used are then <em>pressed</em> together in the result. This allows you to benchmark a set of expressions across a wide variety of input sizes, perform replications and other useful tasks.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">42</span>)</a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb5-3" data-line-number="3">create_df &lt;-<span class="st"> </span><span class="cf">function</span>(rows, cols) {</a>
@@ -130,37 +130,34 @@
 <a class="sourceLine" id="cb5-6" data-line-number="6">    <span class="kw">rep_len</span>(<span class="kw">c</span>(<span class="st">"x"</span>, letters), cols)))</a>
 <a class="sourceLine" id="cb5-7" data-line-number="7">}</a>
 <a class="sourceLine" id="cb5-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb5-9" data-line-number="9">results &lt;-<span class="st"> </span>bench<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/bench/topics/mark">mark</a></span>(</a>
-<a class="sourceLine" id="cb5-10" data-line-number="10">  <span class="dt">setup =</span> dat &lt;-<span class="st"> </span><span class="kw">create_df</span>(rows, cols),</a>
-<a class="sourceLine" id="cb5-11" data-line-number="11">  <span class="dt">parameters =</span> <span class="kw">list</span>(<span class="dt">rows =</span> <span class="kw">c</span>(<span class="dv">10000</span>, <span class="dv">100000</span>), <span class="dt">cols =</span> <span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">100</span>)),</a>
-<a class="sourceLine" id="cb5-12" data-line-number="12">  <span class="dt">min_time =</span> <span class="fl">.5</span>,</a>
-<a class="sourceLine" id="cb5-13" data-line-number="13">  <span class="dt">min_iterations =</span> <span class="dv">100</span>,</a>
-<a class="sourceLine" id="cb5-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb5-15" data-line-number="15">  <span class="dt">bracket =</span> dat[dat<span class="op">$</span>x <span class="op">&gt;</span><span class="st"> </span><span class="dv">500</span>, ],</a>
-<a class="sourceLine" id="cb5-16" data-line-number="16">  <span class="dt">which =</span> dat[<span class="kw">which</span>(dat<span class="op">$</span>x <span class="op">&gt;</span><span class="st"> </span><span class="dv">500</span>), ],</a>
-<a class="sourceLine" id="cb5-17" data-line-number="17">  <span class="dt">subset =</span> <span class="kw">subset</span>(dat, x <span class="op">&gt;</span><span class="st"> </span><span class="dv">500</span>))</a>
-<a class="sourceLine" id="cb5-18" data-line-number="18"><span class="co">#&gt; Running benchmark with:</span></a>
-<a class="sourceLine" id="cb5-19" data-line-number="19"><span class="co">#&gt;     rows  cols</span></a>
-<a class="sourceLine" id="cb5-20" data-line-number="20"><span class="co">#&gt; 1  10000    10</span></a>
-<a class="sourceLine" id="cb5-21" data-line-number="21"><span class="co">#&gt; 2 100000    10</span></a>
-<a class="sourceLine" id="cb5-22" data-line-number="22"><span class="co">#&gt; 3  10000   100</span></a>
-<a class="sourceLine" id="cb5-23" data-line-number="23"><span class="co">#&gt; 4 100000   100</span></a></code></pre></div>
+<a class="sourceLine" id="cb5-9" data-line-number="9">results &lt;-<span class="st"> </span>bench<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/bench/topics/press">press</a></span>(</a>
+<a class="sourceLine" id="cb5-10" data-line-number="10">  <span class="dt">rows =</span> <span class="kw">c</span>(<span class="dv">10000</span>, <span class="dv">100000</span>),</a>
+<a class="sourceLine" id="cb5-11" data-line-number="11">  <span class="dt">cols =</span> <span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">100</span>),</a>
+<a class="sourceLine" id="cb5-12" data-line-number="12">  {</a>
+<a class="sourceLine" id="cb5-13" data-line-number="13">    dat &lt;-<span class="st"> </span><span class="kw">create_df</span>(rows, cols)</a>
+<a class="sourceLine" id="cb5-14" data-line-number="14">    bench<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/bench/topics/mark">mark</a></span>(</a>
+<a class="sourceLine" id="cb5-15" data-line-number="15">      <span class="dt">min_iterations =</span> <span class="dv">100</span>,</a>
+<a class="sourceLine" id="cb5-16" data-line-number="16">      <span class="dt">bracket =</span> dat[dat<span class="op">$</span>x <span class="op">&gt;</span><span class="st"> </span><span class="dv">500</span>, ],</a>
+<a class="sourceLine" id="cb5-17" data-line-number="17">      <span class="dt">which =</span> dat[<span class="kw">which</span>(dat<span class="op">$</span>x <span class="op">&gt;</span><span class="st"> </span><span class="dv">500</span>), ],</a>
+<a class="sourceLine" id="cb5-18" data-line-number="18">      <span class="dt">subset =</span> <span class="kw">subset</span>(dat, x <span class="op">&gt;</span><span class="st"> </span><span class="dv">500</span>)</a>
+<a class="sourceLine" id="cb5-19" data-line-number="19">    )</a>
+<a class="sourceLine" id="cb5-20" data-line-number="20">  }</a>
+<a class="sourceLine" id="cb5-21" data-line-number="21">)</a></code></pre></div>
 </div>
 <div id="plotting" class="section level2">
 <h2 class="hasAnchor">
 <a href="#plotting" class="anchor"></a>Plotting</h2>
-<p><code><a href="http://www.rdocumentation.org/packages/ggplot2/topics/autoplot">ggplot2::autoplot()</a></code> can be used to generate an informative default plot. This plot is colored by gc type and faceted by parameters (if any). By default it generates a <a href="https://github.com/eclarke/ggbeeswarm#geom_quasirandom">beeswarm</a> plot, however you can also use specify other plot types (<code>jitter</code>, <code>ridge</code>, <code>boxplot</code>, <code>violin</code>). See <code><a href="reference/autoplot.bench_mark.html">?autoplot.bench_mark</a></code> for full details.</p>
+<p><code><a href="http://www.rdocumentation.org/packages/ggplot2/topics/autoplot">ggplot2::autoplot()</a></code> can be used to generate an informative default plot. This plot is colored by gc level and faceted by parameters (if any). By default it generates a <a href="https://github.com/eclarke/ggbeeswarm#geom_quasirandom">beeswarm</a> plot, however you can also use specify other plot types (<code>jitter</code>, <code>ridge</code>, <code>boxplot</code>, <code>violin</code>). See <code><a href="reference/autoplot.bench_mark.html">?autoplot.bench_mark</a></code> for full details.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">ggplot2<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/autoplot">autoplot</a></span>(results)</a></code></pre></div>
 <p><img src="reference/figures/README-autoplot-1.png" width="100%"></p>
-<p>You can also produce fully custom plots by unnesting the results and working with the data directly.</p>
+<p>You can also produce fully custom plots by un-nesting the results and working with the data directly.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
 <a class="sourceLine" id="cb7-2" data-line-number="2">results <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb7-3" data-line-number="3"><span class="st">  </span><span class="kw">unnest</span>() <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb7-4" data-line-number="4"><span class="st">  </span><span class="kw">filter</span>(gc <span class="op">==</span><span class="st"> "none"</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb7-5" data-line-number="5"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> mem_alloc, <span class="dt">y =</span> time, <span class="dt">color =</span> expression)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb7-6" data-line-number="6"><span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="st">    </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">"lm"</span>, <span class="dt">se =</span> F) <span class="op">+</span></a>
-<a class="sourceLine" id="cb7-8" data-line-number="8"><span class="st">    </span><span class="kw">scale_color_brewer</span>(<span class="dt">type =</span> <span class="st">"qual"</span>, <span class="dt">palette =</span> <span class="dv">3</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="st">    </span><span class="kw">scale_color_brewer</span>(<span class="dt">type =</span> <span class="st">"qual"</span>, <span class="dt">palette =</span> <span class="dv">3</span>)</a></code></pre></div>
 <p><img src="reference/figures/README-custom-plot-1.png" width="100%"></p>
 </div>
 <div id="system_time" class="section level2">
@@ -170,10 +167,10 @@
 <p><strong>bench</strong> also includes <code><a href="reference/system_time.html">system_time()</a></code>, a higher precision alternative to <a href="https://www.rdocumentation.org/packages/base/versions/3.5.0/topics/system.time">system.time()</a>.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">bench<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/bench/topics/system_time">system_time</a></span>({ i &lt;-<span class="st"> </span><span class="dv">1</span>; <span class="cf">while</span>(i <span class="op">&lt;</span><span class="st"> </span><span class="fl">1e7</span>) i &lt;-<span class="st"> </span>i <span class="op">+</span><span class="st"> </span><span class="dv">1</span> })</a>
 <a class="sourceLine" id="cb8-2" data-line-number="2"><span class="co">#&gt; process    real </span></a>
-<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="co">#&gt;   356ms   360ms</span></a>
+<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="co">#&gt;   320ms   320ms</span></a>
 <a class="sourceLine" id="cb8-4" data-line-number="4">bench<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/bench/topics/system_time">system_time</a></span>(<span class="kw">Sys.sleep</span>(.<span class="dv">5</span>))</a>
 <a class="sourceLine" id="cb8-5" data-line-number="5"><span class="co">#&gt; process    real </span></a>
-<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="co">#&gt;    62µs   504ms</span></a></code></pre></div>
+<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="co">#&gt;    71µs   502ms</span></a></code></pre></div>
 </div>
 <div id="alternatives" class="section level2">
 <h2 class="hasAnchor">

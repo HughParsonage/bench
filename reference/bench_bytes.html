@@ -123,17 +123,23 @@ shorthand sizes (see examples).</p></td>
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>These memory sizes are always assumed to be base 1024, rather than 1000.</p>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>bench_bytes</span>(<span class='st'>"1"</span>)</div><div class='output co'>#&gt; 1B</div><div class='input'><span class='fu'>bench_bytes</span>(<span class='st'>"1K"</span>)</div><div class='output co'>#&gt; 1K</div><div class='input'><span class='fu'>bench_bytes</span>(<span class='st'>"1Kb"</span>)</div><div class='output co'>#&gt; 1K</div><div class='input'><span class='fu'>bench_bytes</span>(<span class='st'>"1KiB"</span>)</div><div class='output co'>#&gt; 1K</div><div class='input'><span class='fu'>bench_bytes</span>(<span class='st'>"1MB"</span>)</div><div class='output co'>#&gt; 1M</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'>bench_bytes</span>(<span class='st'>"1"</span>)</div><div class='output co'>#&gt; 1B</div><div class='input'><span class='fu'>bench_bytes</span>(<span class='st'>"1K"</span>)</div><div class='output co'>#&gt; 1KB</div><div class='input'><span class='fu'>bench_bytes</span>(<span class='st'>"1Kb"</span>)</div><div class='output co'>#&gt; 1KB</div><div class='input'><span class='fu'>bench_bytes</span>(<span class='st'>"1KiB"</span>)</div><div class='output co'>#&gt; 1KB</div><div class='input'><span class='fu'>bench_bytes</span>(<span class='st'>"1MB"</span>)</div><div class='output co'>#&gt; 1MB</div><div class='input'>
 <span class='fu'>bench_bytes</span>(<span class='st'>"1KB"</span>) <span class='kw'>&lt;</span> <span class='st'>"1MB"</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
-<span class='fu'>sum</span>(<span class='fu'>bench_bytes</span>(<span class='fu'>c</span>(<span class='st'>"1MB"</span>, <span class='st'>"5MB"</span>, <span class='st'>"500KB"</span>)))</div><div class='output co'>#&gt; 6.49M</div></pre>
+<span class='fu'>sum</span>(<span class='fu'>bench_bytes</span>(<span class='fu'>c</span>(<span class='st'>"1MB"</span>, <span class='st'>"5MB"</span>, <span class='st'>"500KB"</span>)))</div><div class='output co'>#&gt; 6.49MB</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-            
+      
+      <li><a href="#details">Details</a></li>
+      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
