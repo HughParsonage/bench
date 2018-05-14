@@ -183,9 +183,9 @@ garbage collections (if <code>filter_gc == TRUE</code>).</p></li>
   <span class='fu'>subset</span>(<span class='no'>dat</span>, <span class='no'>x</span> <span class='kw'>&gt;</span> <span class='fl'>500</span>))</div><div class='output co'>#&gt; # A tibble: 3 x 14
 #&gt;   expression          min    mean median    max `itr/sec` mem_alloc  n_gc n_itr
 #&gt;   &lt;chr&gt;           &lt;bch:t&gt; &lt;bch:t&gt; &lt;bch:&gt; &lt;bch:&gt;     &lt;dbl&gt; &lt;bch:byt&gt; &lt;dbl&gt; &lt;int&gt;
-#&gt; 1 dat[dat$x &gt; 50…    31µs  38.8µs 37.3µs  215µs    25783.    4.45KB     2  2311
-#&gt; 2 dat[which(dat$…  32.4µs  41.5µs 38.5µs  415µs    24075.     3.8KB     2  2119
-#&gt; 3 subset(dat, x …  44.2µs  56.2µs 53.5µs  168µs    17787.    5.73KB     1   309
+#&gt; 1 dat[dat$x &gt; 50…  30.6µs  41.1µs 38.8µs  181µs    24320.    4.45KB     2  2176
+#&gt; 2 dat[which(dat$…  32.6µs  42.9µs 39.4µs  190µs    23284.     3.8KB     2  2123
+#&gt; 3 subset(dat, x …    47µs  60.4µs 55.1µs  274µs    16545.    5.73KB     1  1560
 #&gt; # ... with 5 more variables: total_time &lt;bch:tm&gt;, result &lt;list&gt;, memory &lt;list&gt;,
 #&gt; #   time &lt;list&gt;, gc &lt;list&gt;</div></pre>
   </div>

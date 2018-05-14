@@ -125,20 +125,20 @@
 
 <span class='co'># However you can also do so explicitly to filter gc differently.</span>
 <span class='fu'>summary</span>(<span class='no'>results</span>, <span class='kw'>filter_gc</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; # A tibble: 3 x 14
-#&gt;   expression         min   mean  median     max `itr/sec` mem_alloc  n_gc n_itr
-#&gt;   &lt;chr&gt;           &lt;bch:&gt; &lt;bch:&gt; &lt;bch:t&gt; &lt;bch:t&gt;     &lt;dbl&gt; &lt;bch:byt&gt; &lt;dbl&gt; &lt;int&gt;
-#&gt; 1 dat[dat$x &gt; 50…  312µs  538µs   346µs 10.58ms     1859.     417KB    24   931
-#&gt; 2 dat[which(dat$…  236µs  422µs   266µs  6.85ms     2372.     358KB    28  1187
-#&gt; 3 subset(dat, x …  386µs  657µs   434µs  7.48ms     1522.     548KB    28   762
+#&gt;   expression           min   mean median    max `itr/sec` mem_alloc  n_gc n_itr
+#&gt;   &lt;chr&gt;            &lt;bch:t&gt; &lt;bch:&gt; &lt;bch:&gt; &lt;bch:&gt;     &lt;dbl&gt; &lt;bch:byt&gt; &lt;dbl&gt; &lt;int&gt;
+#&gt; 1 dat[dat$x &gt; 500…   314µs  537µs  343µs 8.64ms     1861.     417KB    24   931
+#&gt; 2 dat[which(dat$x…   242µs  436µs  268µs 6.92ms     2292.     358KB    26  1147
+#&gt; 3 subset(dat, x &gt;…   389µs  695µs  432µs 8.95ms     1439.     548KB    27   720
 #&gt; # ... with 5 more variables: total_time &lt;bch:tm&gt;, result &lt;list&gt;, memory &lt;list&gt;,
 #&gt; #   time &lt;list&gt;, gc &lt;list&gt;</div><div class='input'>
 <span class='co'># Or output relative times</span>
 <span class='fu'>summary</span>(<span class='no'>results</span>, <span class='kw'>relative</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; # A tibble: 3 x 14
 #&gt;   expression             min  mean median   max `itr/sec` mem_alloc  n_gc n_itr
 #&gt;   &lt;chr&gt;                &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-#&gt; 1 dat[dat$x &gt; 500, ]    1.32  1.30   1.30  1.07      1.23      1.16  1     1.24
-#&gt; 2 dat[which(dat$x &gt; 5…  1     1      1     1         1.60      1     1.17  1.58
-#&gt; 3 subset(dat, x &gt; 500)  1.63  1.60   1.63  1.09      1         1.53  1.17  1   
+#&gt; 1 dat[dat$x &gt; 500, ]    1.30  1.27   1.28  1.03      1.24      1.16  1     1.31
+#&gt; 2 dat[which(dat$x &gt; 5…  1     1      1     1         1.58      1     1.08  1.62
+#&gt; 3 subset(dat, x &gt; 500)  1.61  1.58   1.61  1.06      1         1.53  1.12  1   
 #&gt; # ... with 5 more variables: total_time &lt;dbl&gt;, result &lt;list&gt;, memory &lt;list&gt;,
 #&gt; #   time &lt;list&gt;, gc &lt;list&gt;</div></pre>
   </div>

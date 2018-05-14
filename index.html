@@ -72,7 +72,7 @@
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#bench" class="anchor"></a>bench</h1></div>
 
-<p>The goal of bench is to benchmark code, tracking both the execution time, memory allocated and number and type of garbage collections.</p>
+<p>The goal of bench is to benchmark code, tracking execution time, memory allocations and garbage collections.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
@@ -83,18 +83,18 @@
 <div id="features" class="section level2">
 <h2 class="hasAnchor">
 <a href="#features" class="anchor"></a>Features</h2>
-<p><code><a href="reference/mark.html">bench::mark()</a></code> is used to benchmark one or a series of expressions, it has a number of advantages over <a href="#alternatives">alternatives</a>.</p>
+<p><code><a href="reference/mark.html">bench::mark()</a></code> is used to benchmark one or a series of expressions, we feel it has a number of advantages over <a href="#alternatives">alternatives</a>.</p>
 <ul>
 <li>Always uses the highest precision APIs available for each operating system (often nanoseconds).</li>
 <li>Tracks memory allocations for each expression.</li>
 <li>Tracks the number and type of R garbage collections per expression iteration.</li>
-<li>Verifies equality of expression results, to avoid accidentally benchmarking inequivalent code.</li>
-<li>Has two arguments, <code>setup</code> and <code>parameters</code>, to make running benchmarks over different size datasets more straightforward.</li>
+<li>Verifies equality of expression results by default, to avoid accidentally benchmarking inequivalent code.</li>
+<li>Has <code><a href="reference/press.html">bench::press()</a></code>, which allows you to easily perform and combine benchmarks across a large grid of values.</li>
 <li>Uses adaptive stopping by default, running each expression for a set amount of time rather than for a specific number of iterations.</li>
-<li>Expressions are run in batches and summary statistics are calculated after filtering for iterations with garbage collections. This allows you to isolate the effects of garbage collection on running time (for more details see <a href="https://radfordneal.wordpress.com/2014/02/02/inaccurate-results-from-microbenchmark/">Neal 2014</a>).</li>
+<li>Expressions are run in batches and summary statistics are calculated after filtering out iterations with garbage collections. This allows you to isolate the performance and effects of garbage collection on running time (for more details see <a href="https://radfordneal.wordpress.com/2014/02/02/inaccurate-results-from-microbenchmark/">Neal 2014</a>).</li>
 </ul>
 <p>The times and memory usage are returned as custom objects which have human readable formatting for display (e.g. <code>104ns</code>) and comparisons (e.g. <code>x$mem_alloc &gt; "10MB"</code>).</p>
-<p>There is also full support for <a href="http://ggplot2.tidyverse.org/">ggplot2</a> including custom scales and formatting.</p>
+<p>There is also full support for plotting with <a href="http://ggplot2.tidyverse.org/">ggplot2</a> including custom scales and formatting.</p>
 </div>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
@@ -118,10 +118,10 @@
 <a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co">#&gt; # A tibble: 3 x 10</span></a>
 <a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt;   expression                     min     mean   median      max `itr/sec` mem_alloc  n_gc n_itr total_time</span></a>
 <a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt;   &lt;chr&gt;                     &lt;bch:tm&gt; &lt;bch:tm&gt; &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt; &lt;dbl&gt; &lt;int&gt;   &lt;bch:tm&gt;</span></a>
-<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt; 1 dat[dat$x &gt; 500, ]           303µs    411µs    365µs   1.32ms     2432.     416KB    50   886      364ms</span></a>
-<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt; 2 dat[which(dat$x &gt; 500), ]    231µs    293µs    273µs   1.21ms     3410.     357KB    54  1109      325ms</span></a>
-<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt; 3 subset(dat, x &gt; 500)         376µs    457µs    422µs   1.39ms     2186.     548KB    63   774      354ms</span></a></code></pre></div>
-<p>The <code><a href="reference/press.html">bench::press()</a></code> can be used to run benchmarks against a grid of parameters. Define values to use as named arguments to <code><a href="reference/press.html">press()</a></code> and the full combination of values will be enumerated. Then put setup and benchmarking code as a single unnamed argument. The results and parameters used are then <em>pressed</em> together in the result. This allows you to benchmark a set of expressions across a wide variety of input sizes, perform replications and other useful tasks.</p>
+<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt; 1 dat[dat$x &gt; 500, ]           305µs    387µs    339µs   1.33ms     2584.     416KB    47   881      341ms</span></a>
+<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt; 2 dat[which(dat$x &gt; 500), ]    231µs    278µs    255µs   1.19ms     3591.     357KB    54  1145      319ms</span></a>
+<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt; 3 subset(dat, x &gt; 500)         374µs    429µs    398µs   1.38ms     2331.     548KB    59   741      318ms</span></a></code></pre></div>
+<p><code><a href="reference/press.html">bench::press()</a></code> is used to run benchmarks against a grid of parameters. Provide setup and benchmarking code as a single unnamed argument then define sets of values as named arguments. The full combination of values will be expanded and the benchmarks are then <em>pressed</em> together in the result. This allows you to benchmark a set of expressions across a wide variety of input sizes, perform replications and other useful tasks.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">42</span>)</a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb5-3" data-line-number="3">create_df &lt;-<span class="st"> </span><span class="cf">function</span>(rows, cols) {</a>
@@ -147,7 +147,7 @@
 <div id="plotting" class="section level2">
 <h2 class="hasAnchor">
 <a href="#plotting" class="anchor"></a>Plotting</h2>
-<p><code><a href="http://www.rdocumentation.org/packages/ggplot2/topics/autoplot">ggplot2::autoplot()</a></code> can be used to generate an informative default plot. This plot is colored by gc level and faceted by parameters (if any). By default it generates a <a href="https://github.com/eclarke/ggbeeswarm#geom_quasirandom">beeswarm</a> plot, however you can also use specify other plot types (<code>jitter</code>, <code>ridge</code>, <code>boxplot</code>, <code>violin</code>). See <code><a href="reference/autoplot.bench_mark.html">?autoplot.bench_mark</a></code> for full details.</p>
+<p><code><a href="http://www.rdocumentation.org/packages/ggplot2/topics/autoplot">ggplot2::autoplot()</a></code> can be used to generate an informative default plot. This plot is colored by gc level (0, 1, or 2) and faceted by parameters (if any). By default it generates a <a href="https://github.com/eclarke/ggbeeswarm#geom_quasirandom">beeswarm</a> plot, however you can also use specify other plot types (<code>jitter</code>, <code>ridge</code>, <code>boxplot</code>, <code>violin</code>). See <code><a href="reference/autoplot.bench_mark.html">?autoplot.bench_mark</a></code> for full details.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">ggplot2<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/autoplot">autoplot</a></span>(results)</a></code></pre></div>
 <p><img src="reference/figures/README-autoplot-1.png" width="100%"></p>
 <p>You can also produce fully custom plots by un-nesting the results and working with the data directly.</p>
@@ -167,10 +167,10 @@
 <p><strong>bench</strong> also includes <code><a href="reference/system_time.html">system_time()</a></code>, a higher precision alternative to <a href="https://www.rdocumentation.org/packages/base/versions/3.5.0/topics/system.time">system.time()</a>.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">bench<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/bench/topics/system_time">system_time</a></span>({ i &lt;-<span class="st"> </span><span class="dv">1</span>; <span class="cf">while</span>(i <span class="op">&lt;</span><span class="st"> </span><span class="fl">1e7</span>) i &lt;-<span class="st"> </span>i <span class="op">+</span><span class="st"> </span><span class="dv">1</span> })</a>
 <a class="sourceLine" id="cb8-2" data-line-number="2"><span class="co">#&gt; process    real </span></a>
-<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="co">#&gt;   320ms   320ms</span></a>
+<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="co">#&gt;   323ms   324ms</span></a>
 <a class="sourceLine" id="cb8-4" data-line-number="4">bench<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/bench/topics/system_time">system_time</a></span>(<span class="kw">Sys.sleep</span>(.<span class="dv">5</span>))</a>
 <a class="sourceLine" id="cb8-5" data-line-number="5"><span class="co">#&gt; process    real </span></a>
-<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="co">#&gt;    71µs   502ms</span></a></code></pre></div>
+<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="co">#&gt;    54µs   503ms</span></a></code></pre></div>
 </div>
 <div id="alternatives" class="section level2">
 <h2 class="hasAnchor">
