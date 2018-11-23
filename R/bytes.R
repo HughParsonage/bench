@@ -63,7 +63,8 @@ as_bench_bytes.numeric <- function(x) {
 format.bench_bytes <- function(x, scientific = FALSE, digits = 3, drop0trailing = TRUE, ...) {
   bytes <- unclass(x)
 
-  unit <- vcapply(x, find_unit, byte_units)
+  # unit <- vcapply(x, find_unit, byte_units)
+  unit <- vcapply(rep_len(min(x), length(x)), find_unit, byte_units)
   res <- round(bytes / byte_units[unit], digits = digits)
 
   ## Zero bytes

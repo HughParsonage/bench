@@ -85,14 +85,14 @@ mark <- function(..., min_time = .5, iterations = NULL, min_iterations = 1,
     if (isTRUE(check) && i > 1) {
       comp <- check_fun(results$result[[1]], results$result[[i]])
       if (!isTRUE(comp)) {
-        stop(glue::glue("
+        warning(glue::glue("
             Each result must equal the first result:
               `{first}` does not equal `{current}`
             ",
-            first = results$expression[[1]],
-            current = results$expression[[i]]
-            ),
-          call. = FALSE
+                           first = results$expression[[1]],
+                           current = results$expression[[i]]
+        ),
+        call. = FALSE
         )
       }
     }
@@ -131,7 +131,7 @@ data_cols <- c("result", "memory", "time", "gc")
 #'
 #' @param object [bench_mark] object to summarize.
 #' @param filter_gc If `TRUE` remove iterations that contained at least one
-#'   garbage collection before summarizing. If `TRUE` but an expression had 
+#'   garbage collection before summarizing. If `TRUE` but an expression had
 #'   a garbage collection in every iteration, filtering is disabled, with a warning.
 #' @param relative If `TRUE` all summaries are computed relative to the minimum
 #'   execution time rather than absolute time.
