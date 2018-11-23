@@ -89,7 +89,8 @@ format.bench_time <- function(x, scientific = FALSE, digits = 3, ...) {
 
   seconds <- unclass(x)
 
-  unit <- vcapply(x, find_unit, time_units())
+  # unit <- vcapply(x, find_unit, time_units())
+  unit <- vcapply(rep_len(min(x), length(x)), find_unit, time_units())
   res <- round(seconds / time_units()[unit], digits = digits)
 
   ## Zero seconds
@@ -102,7 +103,14 @@ format.bench_time <- function(x, scientific = FALSE, digits = 3, ...) {
   unit[is.na(seconds)] <- ""            # Includes NaN as well
 
 
-  res <- format(res, scientific = scientific, digits = digits, drop0trailing = TRUE, ...)
+  if (scientific) {
+    res <- format(res, scientific = scientific, digits = digits, drop0trailing = TRUE, ...)
+  } else {
+    res <- formatC(res,
+                   width = max(nchar(res, allowNA = TRUE, keepNA = FALSE)),
+                   digits = digits,
+                   format = "f")
+  }
 
   stats::setNames(paste0(res, unit), nms)
 }

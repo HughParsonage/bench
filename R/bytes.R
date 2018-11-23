@@ -77,7 +77,14 @@ format.bench_bytes <- function(x, scientific = FALSE, digits = 3, ...) {
   large_units <- unit %in% names(byte_units)[-1]
   unit[large_units] <- paste0(unit[large_units], "B")
 
-  res <- format(res, scientific = scientific, digits = digits, drop0trailing = TRUE, ...)
+  if (scientific) {
+    res <- format(res, scientific = scientific, digits = digits, drop0trailing = TRUE, ...)
+  } else {
+    res <- formatC(res,
+                   width = max(nchar(res, allowNA = TRUE, keepNA = FALSE)),
+                   digits = digits,
+                   format = "f")
+  }
 
   paste0(res, unit)
 }
